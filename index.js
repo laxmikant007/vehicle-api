@@ -3,6 +3,7 @@ import apiRouter from "./src/routes/v1/api.js";
 import response from "./src/helpers/response.js";
 import corsMiddleware from "./src/middleware/cors.js";
 import model from "./src/models/model.js";
+import swagger from "./src/docs/swagger.js";
 
 import helmet from "helmet";
 
@@ -21,6 +22,9 @@ corsMiddleware(app);
 app.use(response);
 
 app.get("/", (req, res) => res.json({ status: true }));
+
+// Swagger documentation route
+app.use("/api-docs", swagger.serve, swagger.setup);
 
 app.use("/api", apiRouter);
 

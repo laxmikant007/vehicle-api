@@ -241,7 +241,6 @@ async function getVehicle(request) {
     
     const vehicleId = parseInt(request.id, 10);
 
-    console.log("this is vehical", vehicleId)
     
     if (isNaN(vehicleId)) {
       return { status: false, message: "Invalid vehicle ID" };
