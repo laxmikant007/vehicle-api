@@ -22,7 +22,7 @@ corsMiddleware(app);
 
 app.use(response);
 
-app.get("/", (req, res) => res.json({ status: true }));
+app.get("/", (req, res) => res.json({ status: true, message: "use /api-docs to access swagger documentation" }));
 
 // Swagger documentation route
 app.use("/api-docs", swagger.serve, swagger.setup);
