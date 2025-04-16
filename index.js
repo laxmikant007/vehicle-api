@@ -4,8 +4,10 @@ import response from "./src/helpers/response.js";
 import corsMiddleware from "./src/middleware/cors.js";
 import model from "./src/models/model.js";
 import swagger from "./src/docs/swagger.js";
+import seedProducts from "./src/seeders/fixedProductSeeder.js";
 
 import helmet from "helmet";
+import productRouter from "./src/routes/v1/productsApi.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -28,6 +30,17 @@ app.get("/", (req, res) => res.json({ status: true, message: "use /api-docs to a
 app.use("/api-docs", swagger.serve, swagger.setup);
 
 app.use("/api", apiRouter);
+
+app.use("/products", productRouter);
+
+// Run the seeder
+(async () => {
+  try {
+    await seedProducts();
+  } catch (err) {
+    console.error("Error running seeder:", err);
+  }
+})();
 
 
 app.listen(PORT, () => {
